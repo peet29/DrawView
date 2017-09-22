@@ -30,9 +30,24 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     //Attributes
     var strokeColor: Int = Color.RED
+        set(value) {
+            field = value
+            mPaint.color = field
+        }
     var strokeWidth: Float = 2f
+        set(value) {
+            field = value
+            mPaint.strokeWidth = field
+        }
     var circleRadius: Float = 10f
+        set(value) {
+            field = value
+        }
     var circleStrokeWidth: Float = 2f
+        set(value) {
+            field = value
+            circlePaint.strokeWidth = field
+        }
 
     constructor(context: Context) : this(context, null)
 
@@ -58,17 +73,19 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun getAttributes(attrs: AttributeSet?) {
-        val attr = context.theme.obtainStyledAttributes(
-                attrs,
-                R.styleable.DrawView,
-                0, 0)
-        try {
-            strokeColor = attr.getColor(R.styleable.DrawView_color, strokeColor)
-            strokeWidth = attr.getFloat(R.styleable.DrawView_strokeWidth, strokeWidth)
-            circleRadius = attr.getFloat(R.styleable.DrawView_circleRadius, circleRadius)
-            circleStrokeWidth = attr.getFloat(R.styleable.DrawView_circleStrokeWidth, circleStrokeWidth)
-        } finally {
-            attr.recycle()
+        if (attrs != null) {
+            val attr = context.theme.obtainStyledAttributes(
+                    attrs,
+                    R.styleable.DrawView,
+                    0, 0)
+            try {
+                strokeColor = attr.getColor(R.styleable.DrawView_color, strokeColor)
+                strokeWidth = attr.getFloat(R.styleable.DrawView_strokeWidth, strokeWidth)
+                circleRadius = attr.getFloat(R.styleable.DrawView_circleRadius, circleRadius)
+                circleStrokeWidth = attr.getFloat(R.styleable.DrawView_circleStrokeWidth, circleStrokeWidth)
+            } finally {
+                attr.recycle()
+            }
         }
     }
 
