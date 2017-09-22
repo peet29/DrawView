@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DrawView">
+        <attr name="color" format="color" />
+        <attr name="strokeWidth" format="float" />
+        <attr name="circleRadius" format="float" />
+        <attr name="circleStrokeWidth" format="float" />
+    </declare-styleable>
+</resources>

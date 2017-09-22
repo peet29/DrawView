@@ -1,9 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MainDraw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="biz.mwork.testsign.SignFragment">
 
-
+    <biz.mwork.testsign.DrawView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:circleRadius="15"
+        custom:circleStrokeWidth="2"
+        custom:color="@android:color/black"
+        custom:strokeWidth="3" />
 </FrameLayout>

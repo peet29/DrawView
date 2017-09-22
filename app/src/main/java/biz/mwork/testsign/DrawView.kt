@@ -2,6 +2,7 @@ package biz.mwork.testsign
 
 import android.content.Context
 import android.graphics.*
+import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
@@ -13,7 +14,7 @@ import android.view.View
  * @since 21/9/2017
  */
 
-class DrawView(context: Context) : View(context) {
+class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private var mPaint: Paint = Paint()
     lateinit private var mBitmap: Bitmap
@@ -27,25 +28,48 @@ class DrawView(context: Context) : View(context) {
     private var mY: Float = 0f
     private val TOUCH_TOLERANCE = 4f
 
+    //Attributes
+    var strokeColor: Int = Color.RED
+    var strokeWidth: Float = 2f
+    var circleRadius: Float = 10f
+    var circleStrokeWidth: Float = 2f
+
+    constructor(context: Context) : this(context, null)
+
     init {
+        getAttributes(attrs)
         mPaint.isAntiAlias = true
         mPaint.isDither = true
-        mPaint.color = Color.GREEN
+        mPaint.color = strokeColor
         mPaint.style = Paint.Style.STROKE
         mPaint.strokeJoin = Paint.Join.ROUND
         mPaint.strokeCap = Paint.Cap.ROUND
-        mPaint.strokeWidth = 12f
+        mPaint.strokeWidth = strokeWidth
 
         mPath = Path()
         mBitmapPaint = Paint(Paint.DITHER_FLAG)
         circlePaint = Paint()
         circlePath = Path()
         circlePaint.isAntiAlias = true
-        circlePaint.color = Color.BLUE
+        circlePaint.color = Color.BLACK
         circlePaint.style = Paint.Style.STROKE
         circlePaint.strokeJoin = Paint.Join.MITER
-        circlePaint.strokeWidth = 4f
+        circlePaint.strokeWidth = circleStrokeWidth
+    }
 
+    private fun getAttributes(attrs: AttributeSet?) {
+        val attr = context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.DrawView,
+                0, 0)
+        try {
+            strokeColor = attr.getColor(R.styleable.DrawView_color, strokeColor)
+            strokeWidth = attr.getFloat(R.styleable.DrawView_strokeWidth, strokeWidth)
+            circleRadius = attr.getFloat(R.styleable.DrawView_circleRadius, circleRadius)
+            circleStrokeWidth = attr.getFloat(R.styleable.DrawView_circleStrokeWidth, circleStrokeWidth)
+        } finally {
+            attr.recycle()
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -77,7 +101,7 @@ class DrawView(context: Context) : View(context) {
             mY = y
 
             circlePath.reset()
-            circlePath.addCircle(mX, mY, 30f, Path.Direction.CW)
+            circlePath.addCircle(mX, mY, circleRadius, Path.Direction.CW)
         }
     }
 
