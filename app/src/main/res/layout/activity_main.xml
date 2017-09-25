@@ -6,50 +6,50 @@
     android:layout_height="match_parent"
     tools:context="biz.mwork.testsign.MainActivity">
 
-  <!--  <FrameLayout
-        android:id="@+id/Fragment"
+    <!--  <FrameLayout
+          android:id="@+id/Fragment"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_marginBottom="0dp"
+          android:layout_marginLeft="0dp"
+          android:layout_marginRight="0dp"
+          android:layout_marginTop="0dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+      </FrameLayout>-->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
+        android:layout_height="?attr/actionBarSize"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>-->
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Main"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolBar"
-      android:layout_width="0dp"
-      android:layout_height="?attr/actionBarSize"
-      android:layout_marginLeft="0dp"
-      android:layout_marginRight="0dp"
-      android:layout_marginTop="0dp"
-      android:background="?attr/colorPrimary"
-      android:elevation="4dp"
-      android:theme="@style/ThemeOverlay.AppCompat"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:title="Main"
-      app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-
-  <Button
-      android:id="@+id/button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:layout_marginTop="8dp"
-      android:text="Open"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Open"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 </android.support.constraint.ConstraintLayout>
