@@ -2,6 +2,8 @@ package biz.mwork.testsign
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment, cFragment, "SignFragment").commit()*/
 
-
+        toolBar.title = "Main"
+        button.setOnClickListener {
+            startActivity<DrawActivity>()
+        }
     }
 }
