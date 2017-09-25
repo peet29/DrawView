@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="?actionBarSize"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
@@ -20,8 +20,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Signature" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signature"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:showDividers="beginning"
+            android:text="SAVE" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:showDividers="beginning"
+            android:text="CLEAR" />
+
+    </android.support.v7.widget.Toolbar>
 
     <biz.mwork.testsign.DrawView
         android:id="@+id/drawView"
