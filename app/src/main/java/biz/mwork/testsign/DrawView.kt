@@ -16,9 +16,12 @@ import android.view.View
 
 class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
-    private var mPaint: Paint = Paint()
     lateinit private var mBitmap: Bitmap
     lateinit private var mCanvas: Canvas
+    private var mWidth: Int = 0
+    private var mHeight: Int = 0
+
+    private var mPaint: Paint = Paint()
     private var mPath: Path = Path()
     private var mBitmapPaint: Paint = Paint(Paint.DITHER_FLAG)
     private var circlePaint: Paint = Paint()
@@ -84,8 +87,14 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         super.onSizeChanged(w, h, oldW, oldH)
+        mWidth = w;mHeight = h
+        createBitmap(mWidth, mHeight)
+    }
+
+    private fun createBitmap(w: Int, h: Int) {
         mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         mCanvas = Canvas(mBitmap)
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -122,6 +131,11 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         mCanvas.drawPath(mPath, mPaint)
         // kill this so we don't double draw
         mPath.reset()
+    }
+
+    fun clearBitmap() {
+        mBitmap.recycle()
+        createBitmap(mWidth, mHeight)
     }
 
 

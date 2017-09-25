@@ -14,5 +14,10 @@ class DrawActivity : AppCompatActivity() {
         toolBar.setNavigationOnClickListener {
             finish()
         }
+
+        clearButton.setOnClickListener {
+            drawView.clearBitmap()
+        }
+
     }
 }
