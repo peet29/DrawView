@@ -19,14 +19,14 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var mPaint: Paint = Paint()
     lateinit private var mBitmap: Bitmap
     lateinit private var mCanvas: Canvas
-    private var mPath: Path
-    private var mBitmapPaint: Paint
-    private var circlePaint: Paint
-    private var circlePath: Path
+    private var mPath: Path = Path()
+    private var mBitmapPaint: Paint = Paint(Paint.DITHER_FLAG)
+    private var circlePaint: Paint = Paint()
+    private var circlePath: Path = Path()
 
     private var mX: Float = 0f
     private var mY: Float = 0f
-    private val TOUCH_TOLERANCE = 4f
+    private val TOLERANCE = 4f
 
     //Attributes
     var strokeColor: Int = Color.RED
@@ -40,9 +40,6 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
             mPaint.strokeWidth = field
         }
     var circleRadius: Float = 10f
-        set(value) {
-            field = value
-        }
     var circleStrokeWidth: Float = 2f
         set(value) {
             field = value
@@ -61,10 +58,6 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         mPaint.strokeCap = Paint.Cap.ROUND
         mPaint.strokeWidth = strokeWidth
 
-        mPath = Path()
-        mBitmapPaint = Paint(Paint.DITHER_FLAG)
-        circlePaint = Paint()
-        circlePath = Path()
         circlePaint.isAntiAlias = true
         circlePaint.color = Color.BLACK
         circlePaint.style = Paint.Style.STROKE
@@ -72,25 +65,25 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         circlePaint.strokeWidth = circleStrokeWidth
     }
 
-    private fun getAttributes(attrs: AttributeSet?) {
-        if (attrs != null) {
-            val attr = context.theme.obtainStyledAttributes(
-                    attrs,
+    private fun getAttributes(attributeSet: AttributeSet?) {
+        attributeSet?.let {
+            val typedArray = context.theme.obtainStyledAttributes(
+                    it,
                     R.styleable.DrawView,
                     0, 0)
             try {
-                strokeColor = attr.getColor(R.styleable.DrawView_color, strokeColor)
-                strokeWidth = attr.getFloat(R.styleable.DrawView_strokeWidth, strokeWidth)
-                circleRadius = attr.getFloat(R.styleable.DrawView_circleRadius, circleRadius)
-                circleStrokeWidth = attr.getFloat(R.styleable.DrawView_circleStrokeWidth, circleStrokeWidth)
+                strokeColor = typedArray.getColor(R.styleable.DrawView_color, strokeColor)
+                strokeWidth = typedArray.getFloat(R.styleable.DrawView_strokeWidth, strokeWidth)
+                circleRadius = typedArray.getFloat(R.styleable.DrawView_circleRadius, circleRadius)
+                circleStrokeWidth = typedArray.getFloat(R.styleable.DrawView_circleStrokeWidth, circleStrokeWidth)
             } finally {
-                attr.recycle()
+                typedArray.recycle()
             }
         }
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
+    override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
+        super.onSizeChanged(w, h, oldW, oldH)
         mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         mCanvas = Canvas(mBitmap)
     }
@@ -102,17 +95,17 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         canvas?.drawPath(circlePath, circlePaint)
     }
 
-    private fun touch_start(x: Float, y: Float) {
+    private fun touchStart(x: Float, y: Float) {
         mPath.reset()
         mPath.moveTo(x, y)
         mX = x
         mY = y
     }
 
-    private fun touch_move(x: Float, y: Float) {
+    private fun touchMove(x: Float, y: Float) {
         val dx = Math.abs(x - mX)
         val dy = Math.abs(y - mY)
-        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+        if (dx >= TOLERANCE || dy >= TOLERANCE) {
             mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2)
             mX = x
             mY = y
@@ -122,7 +115,7 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         }
     }
 
-    private fun touch_up() {
+    private fun touchUp() {
         mPath.lineTo(mX, mY)
         circlePath.reset()
         // commit the path to our offscreen
@@ -134,24 +127,25 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
-        val x = event!!.x
-        val y = event.y
+        event?.let {
+            val x = it.x
+            val y = it.y
 
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                touch_start(x, y)
-                invalidate()
-            }
-            MotionEvent.ACTION_MOVE -> {
-                touch_move(x, y)
-                invalidate()
-            }
-            MotionEvent.ACTION_UP -> {
-                touch_up()
-                invalidate()
+            when (it.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    touchStart(x, y)
+                    invalidate()
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    touchMove(x, y)
+                    invalidate()
+                }
+                MotionEvent.ACTION_UP -> {
+                    touchUp()
+                    invalidate()
+                }
             }
         }
-
         return true
     }
 }
