@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment, cFragment, "SignFragment").commit()*/
 
-        toolBar.title = "Main"
         button.setOnClickListener {
             startActivity<DrawActivity>()
         }

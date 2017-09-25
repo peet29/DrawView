@@ -35,7 +35,9 @@
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:title="Main"
+      app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
   <Button
       android:id="@+id/button"
