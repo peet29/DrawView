@@ -9,8 +9,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val cFragment = SignFragment.newInstance()
+        /*val cFragment = SignFragment.newInstance()
         supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment, cFragment, "SignFragment").commit()
+                .replace(R.id.Fragment, cFragment, "SignFragment").commit()*/
+
+
     }
 }
