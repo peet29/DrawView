@@ -12,14 +12,14 @@ import android.view.View
  *
  * @author Thanawat Hanthong
  * @since 21/9/2017
+ *
  */
+
 
 class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     lateinit private var mBitmap: Bitmap
     lateinit private var mCanvas: Canvas
-    private var mWidth: Int = 0
-    private var mHeight: Int = 0
 
     private var mPaint: Paint = Paint()
     private var mPath: Path = Path()
@@ -87,8 +87,7 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         super.onSizeChanged(w, h, oldW, oldH)
-        mWidth = w;mHeight = h
-        createBitmap(mWidth, mHeight)
+        createBitmap(w, h)
     }
 
     private fun createBitmap(w: Int, h: Int) {
@@ -119,7 +118,9 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
             mX = x
             mY = y
 
+            //remove circle
             circlePath.reset()
+            //set circle size and position
             circlePath.addCircle(mX, mY, circleRadius, Path.Direction.CW)
         }
     }
@@ -133,11 +134,18 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         mPath.reset()
     }
 
+    /**
+     * Clear bitmap data in [mBitmap]
+     */
     fun clearBitmap() {
+        val size = Pair(mBitmap.width, mBitmap.height)
         mBitmap.recycle()
-        createBitmap(mWidth, mHeight)
+        createBitmap(size.first, size.second)
     }
 
+    /**
+     * get Bitmap data
+     */
     fun getBitmap(): Bitmap = mBitmap
 
 
