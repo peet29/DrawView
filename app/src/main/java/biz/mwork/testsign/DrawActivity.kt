@@ -24,17 +24,19 @@ class DrawActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            val bitmap = drawView.getBitmap()
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.WEBP, 80, stream)
-            val byteArray = stream.toByteArray()
-
+            val byteArray = createByteArrayFromBitmap(drawView.getBitmap())
             val intent = Intent()
             intent.putExtra(key, byteArray)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
 
+    }
+
+    private fun createByteArrayFromBitmap(bitmap: Bitmap): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, stream)
+        return stream.toByteArray()
     }
 
     companion object {
