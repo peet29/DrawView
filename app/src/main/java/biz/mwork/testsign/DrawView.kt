@@ -138,6 +138,8 @@ class DrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         createBitmap(mWidth, mHeight)
     }
 
+    fun getBitmap(): Bitmap = mBitmap
+
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
